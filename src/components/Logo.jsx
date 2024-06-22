@@ -6,7 +6,7 @@ function Logo({ width = '100px', height = 'auto' }) {
   return (
     <div>
       <img 
-        src="../../public/LOGOEB.png" 
+        src="/logoeb.png" 
         alt="Epic Blog" 
         style={{ width: width, height: height }} 
       />

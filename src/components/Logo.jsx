@@ -1,9 +1,17 @@
-import React from 'react'
 
-function Logo({width='100px'}) {
+
+import React from 'react';
+
+function Logo({ width = '100px', height = 'auto' }) {
   return (
-    <div>Logo</div>
+    <div>
+      <img 
+        src="../../public/LOGOEB.png" 
+        alt="Epic Blog" 
+        style={{ width: width, height: height }} 
+      />
+    </div>
   )
 }
 
-export default Logo
+export default Logo;

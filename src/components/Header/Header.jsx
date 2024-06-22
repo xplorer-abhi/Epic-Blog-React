@@ -12,7 +12,7 @@ function Header() {
     {
       name: 'Home',
       slug: "/",
-      active: true
+      active: !authStatus,
     }, 
     {
       name: "Login",
@@ -38,13 +38,13 @@ function Header() {
 
 
   return (
-    <header className='py-3 shadow bg-gray-500'>
+    <header className='py-3 shadow bg-[#E7D4B5]'>
       <Container>
         <nav className='flex'>
           <div className='mr-4'>
             <Link to='/'>
-              <Logo width='70px'   />
-              </Link>
+              <Logo width='100px'   />
+            </Link>
           </div>
           <ul className='flex ml-auto'>
             {navItems.map((item) => 
@@ -52,7 +52,7 @@ function Header() {
               <li key={item.name}>
                 <button
                 onClick={() => navigate(item.slug)}
-                className='inline-bock px-6 py-2 duration-200 hover:bg-blue-100 rounded-full'
+                className='inline-bock px-6 py-2 duration-200 hover:bg-[#B6C7AA] rounded-full'
                 >{item.name}</button>
               </li>
             ) : null

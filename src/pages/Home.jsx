@@ -1,19 +1,28 @@
-import React, {useEffect, useState} from 'react'
+
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import appwriteService from "../appwrite/config";
-import { PostCard } from '../components'
-import { Container } from "../components/index"
+import { PostCard } from '../components';
+import { Container } from "../components/index";
 
 function Home() {
-    const [posts, setPosts] = useState([])
+    const [posts, setPosts] = useState([]);
+    const isAuthenticated = useSelector((state) => state.auth.status); 
+    const userData = useSelector((state) => state.auth.userData); 
 
     useEffect(() => {
-        appwriteService.getPosts().then((posts) => {
-            if (posts) {
-                setPosts(posts.documents)
-            }
-        })
-    }, [])
-    if (posts.length === 0) {
+        if (isAuthenticated) { 
+            appwriteService.getPosts().then((posts) => {
+                if (posts) {
+                    setPosts(posts.documents);
+                }
+            }).catch((error) => {
+                console.error("Error fetching posts:", error);
+            });
+        }
+    }, [isAuthenticated]);
+
+    if (!isAuthenticated) {
         return (
             <div className="w-full py-8 mt-4 text-center">
                 <Container>
@@ -26,8 +35,25 @@ function Home() {
                     </div>
                 </Container>
             </div>
-        )
+        );
     }
+
+    if (posts.length === 0) {
+        return (
+            <div className="w-full py-8 mt-4 text-center">
+                <Container>
+                    <div className="flex flex-wrap">
+                        <div className="p-2 w-full">
+                            <h1 className="text-2xl font-bold hover:text-gray-500">
+                                No posts available
+                            </h1>
+                        </div>
+                    </div>
+                </Container>
+            </div>
+        );
+    }
+
     return (
         <div className='w-full py-8'>
             <Container>
@@ -40,7 +66,8 @@ function Home() {
                 </div>
             </Container>
         </div>
-    )
+    );
 }
 
-export default Home
+export default Home;
+
